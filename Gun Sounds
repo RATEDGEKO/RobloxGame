@@ -1,4 +1,6 @@
+-- Defining the gun
 local gun = script.Parent
+-- Definign the gun sounds
 local gun_shot = gun.Handle['Gun Shot']
 
 gun.Equipped:Connect(function(mouse)
