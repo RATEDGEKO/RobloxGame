@@ -1,0 +1,8 @@
+local gun = script.Parent
+local gun_shot = gun.Handle['Gun Shot']
+
+gun.Equipped:Connect(function(mouse)
+	mouse.Button1Down:Connect(function()
+		gun_shot:Play()
+	end)
+end)
