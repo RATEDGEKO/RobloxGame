@@ -1,9 +1,39 @@
-game.Players.PlayerAdded:Connect(function(player)
-    player.Chatted:Connect(function(player,message)
-        if player.Name == "playername" then
-            local words = string.split(message," ")
-            if string.lower(words[1]) == "!kick" then
-                words[2]:Kick("You have been kicked.")
+local Players = game.Players
+
+local function findPlayerByName(name)
+    -- escape if nothing is provided
+    if name == nil then
+        return nil
+    end
+
+    -- check if any players match the name provided
+    local allPlayers = Players:GetPlayers()
+    for _, player in ipairs(allPlayers) do
+        if player.Name == name or string.lower(player.Name) == name then
+            return player
+        end
+    end
+
+    -- couldn't find any players that matched
+    return nil
+end
+
+-- define all the players that can use commands
+local admins = {
+    ["playername"] = true,
+}
+
+Players.PlayerAdded:Connect(function(player)
+    player.Chatted:Connect(function(message, recipient)
+        if admins[player.Name] then
+            local words = string.split(message, " ")
+            local cmd = string.lower(words[1])
+            if cmd == "!kick" then
+                local playerName = words[2]
+                local targetPlayer = findPlayerByName(playerName)
+                if targetPlayer then
+                    targetPlayer:Kick("You have been kicked.")
+                end
             end
         end
     end)
