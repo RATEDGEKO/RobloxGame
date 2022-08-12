@@ -1,0 +1,17 @@
+-- Defining the gun
+local gun = script.Parent
+-- defining the gun shot sound
+local gun_shot = gun.Handle['Gun Shot']
+
+-- Connect the client side to the server side
+local ReplicatedStorage = game:GetService('ReplicatedStorage')
+-- Under replicated storage in the explorer add a "remote event" and rename to what is in parenthesis
+local remoteEvent = ReplicatedStorage:WaitForChild('ShotEvent')
+
+
+gun.Equipped:Connect(function(mouse)
+	mouse.Button1Down:Connect(function()
+		remoteEvent:FireServer(gun.Handle.Position, mouse.Hit.p)
+		gun_shot:Play()
+	end)
+end)
