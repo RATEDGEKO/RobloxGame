@@ -24,6 +24,7 @@ remoteEvent.OnServerEvent:Connect(function(player, gunPos, mosPos)
 -- Finding who shot the bullet
 	local attacker = Instance.new('StringValue')
 	attacker.Name = 'Attacker'
+	attacker.Parent = bullet
 	attacker.Value = player.Name
 
 	bullet.CFrame = CFrame.new(gunPos, mosPos)
