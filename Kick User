@@ -1,0 +1,11 @@
+game.Players.PlayerAdded:Connect(function(player)
+    player.Chatted:Connect(function(player,message)
+        if player.Name == "playername" then
+            local words = string.split(message," ")
+            if string.lower(words[1]) == "!kick" then
+                words[2]:Kick("You have been kicked.")
+            end
+        end
+    end)
+end)
+-- Use by saying !Kick [User] in text channel
