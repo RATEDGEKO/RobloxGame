@@ -1,0 +1,14 @@
+local bullet = script.Parent
+
+local function player_check(otherPart)
+	local humanoid = otherPart.Parent:FindFirstChild('Humanoid')
+-- Making sure not to damage the shooter/attacker
+	if humanoid and humanoid.Parent.Name ~= bullet.Attacker.Value then
+-- Adjust amount of damage taken in the parenthesis
+		humanoid:TakeDamage(30)
+	end
+end
+
+bullet.Touched:Connect(player_check)
+
+-- Must be used in conjunction with the updated Bullet Create code
