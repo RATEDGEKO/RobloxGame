@@ -1,0 +1,5 @@
+-- Make script under "RunScript"
+ame.Players.PlayerAdded:Connect(function(plr)
+   script.Parent.Parent = plr.PlayerGui
+   script.Parent:Clone()
+end)
