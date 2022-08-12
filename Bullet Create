@@ -1,9 +1,8 @@
--- Bullet create: the creation of the server side of the bullet, works hand in hand with client side
-
 -- Connect the client side to the server side
 local ReplicatedStorage = game:GetService('ReplicatedStorage')
 -- Under replicated storage in the explorer add a "remote event" and rename to what is in parenthesis
 local remoteEvent = ReplicatedStorage:WaitForChild('ShotEvent')
+local ServerStorage = game:GetService('ServerStorage')
 
 remoteEvent.OnServerEvent:Connect(function(player, gunPos, mosPos)
 -- define the bullet
@@ -13,14 +12,22 @@ remoteEvent.OnServerEvent:Connect(function(player, gunPos, mosPos)
 	bullet.Shape = Enum.PartType.Cylinder
 	bullet.Size = Vector3.new(0.5, 0.25, 0.5)
 	bullet.BrickColor = BrickColor.new('Bright red')
-	bullet.Orientation = Vector3.new(0, -90, 0)
 	
+--Damage 
+	local damageScript = ServerStorage:FindFirstChild('Damage'):Clone()
+	damageScript.Parent = bullet
 -- Distance variable calculation
 	local distance = (mosPos - gunPos).magnitude
 -- Bullet Velocity
-	local speed = 200
+	local speed = 500
 	
+-- Finding who shot the bullet
+	local attacker = Instance.new('StringValue')
+	attacker.Name = 'Attacker'
+	attacker.Value = player.Name
+
 	bullet.CFrame = CFrame.new(gunPos, mosPos)
 	bullet.Velocity = bullet.CFrame.LookVector * speed
+	bullet.Orientation = Vector3.new(790, 600, 90)
 
 end)
